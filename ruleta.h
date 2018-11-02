@@ -108,7 +108,7 @@ apuesta realizada
 		string AB(int bola);
 
 
-		void GetEstadoRuleta(int &jugTotal, int &sumaDinero,int &tiradas, int &bancaTotal);
+		void getEstadoRuleta(int &jugTotal, int &sumaDinero,int &tiradas, int &bancaTotal);
 
 };
 

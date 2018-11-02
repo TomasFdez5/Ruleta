@@ -350,11 +350,11 @@ Actualiza el valor de la banca segun los premios que ha repartido.
 
 
 
-	void GetEstadoRuleta(int &jugTotal, int &sumaDinero,int &tiradas, int &bancaTotal){
-		list<Jugaor>::iterator i;
+	void Ruleta::getEstadoRuleta(int &jugTotal, int &sumaDinero,int &tiradas, int &bancaTotal){
+		list<Jugador>::iterator i;
 		sumaDinero=0;
 		for (i = jugadores_.begin(); i !=jugadores_.end(); i++){
-			sumaDinero=sumaDinero+(*i).getDinero;
+			sumaDinero=sumaDinero+(*i).getDinero();
 		}
 		sumaDinero=sumaDinero+getBanca();
 		jugTotal=jugadores_.size();
