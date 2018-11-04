@@ -17,19 +17,23 @@ using namespace std;
 
 int main(){
 	//Opcion del menu
-	int opcion;
+	int opcion=1;
+	list<Jugador>aux;
+	list<Jugador>::iterator a1;
 
 	//Declaracion de variables
-	int jugTotal,sumaDinero,tiradas,bancaTotal, edad,diner;
+	int jugTotal,sumaDinero,tiradas,bancaTotal, edad,dinero;
 	string DNI,nombre,codigoCrupier,codigoJugador,apellidos,direccion,localidad,provincia,pais, valor;
 	string cadena,apellido1,apellido2;
 	//Declaracion de los objetos de las clases
 	Persona p(DNI,nombre,apellidos,edad,direccion,localidad,provincia,pais);
-	crupier c(DNI,codigoCrupier,nombre,apellidos,edad,direccion,localidad,provincia,pais);
+	Crupier c(DNI,codigoCrupier,nombre,apellidos,edad,direccion,localidad,provincia,pais);
 	Jugador j(DNI,codigoJugador,nombre,apellidos,edad,direccion,localidad,provincia,pais);
 	Ruleta r(c);
 
+		cout<<"Into para continuar..."<<endl;
 	do{
+		getchar();
 		cout<<"______________________________________________"<<endl;
 		cout<<"Elija una opción de la Ruleta:"<<endl;
 
@@ -39,7 +43,7 @@ int main(){
 
 		cout<<"3. Ver el estado de la Ruleta "<<endl;//c
 
-		cout<<"4. Cargar la Ruleta con el registro"<<endl;//a
+		cout<<"4. Cargar los jugadores del fichero jugadores.txt"<<endl;//a
 
 		cout<<"5. Guardar en el Registro los jugadores"<<endl;//b
 
@@ -48,13 +52,20 @@ int main(){
 		cout<<"7. Salir del programa "<<endl;//g
 		cout<<"______________________________________________"<<endl;
 
+		cout<<"Elija una opcion :"<<endl;
+		cin>>opcion;
+
 		switch(opcion){
 			case 1:
 				cout<<"______________________________________________"<<endl;
 				cout<<"Introduzca los datos del jugador..."<<endl;
 				cout<<"Introduzca su DNI :"<<endl;
-				cinn>>cadena;
+				cin>>cadena;
 				j.setDNI(cadena);
+
+				cout<<"Introduzca su codigo :"<<endl;
+				cin>>cadena;
+				j.setCodigo(cadena);
 
 				cout<<"Introduzca su nombre :"<<endl;
 				cin>>cadena;
@@ -65,12 +76,12 @@ int main(){
 				cout<<"Introduzca su segundo apellido :"<<endl;
 				cin>>apellido2;
 				apellidos=apellido1+" "+apellido2;
-				j.setApellido(apellidos);
+				j.setApellidos(apellidos);
 
 				cout<<"Introduzca su edad :"<<endl;
 				cin>>edad;
 				j.setEdad(edad);
-
+				getchar();
 				cout<<"Introduzca su direccion :"<<endl;
 				getline(cin,cadena);
 				j.setDireccion(direccion);
@@ -95,29 +106,52 @@ int main(){
 				r.addJugador(j);
 
 				cout<<"Jugador introducido con exito!"<<endl;
-				cout<<"______________________________________________"<<endl;
+				cout<<"______________________________________________\n"<<endl;
 				break;
 
 			case 2:
+				cout<<"______________________________________________"<<endl;
+				cout<<"Introduzca el dni del jugador que desea eliminar :"<<endl;
+				cin>>cadena;
+				r.deleteJugador(cadena);
+				cout<<"Jugador eliminado con exito!"<<endl;
+				cout<<"______________________________________________\n"<<endl;
+
+				break;
 			case 3:
 				cout<<"______________________________________________"<<endl;
 
+				cout<<"\tEstado de la ruleta :"<<endl;
 				r.getEstadoRuleta(jugTotal,sumaDinero,tiradas,bancaTotal);
-				cout<<"La ruleta contiene : "<<jugTotal<<". \nEl dinero actual de la mesa es : "<<sumaDinero<<"€. \nLa bola se ha tirado : "<<tiradas<<" veces. \nEl dinero de la banca es : "<<bancaTotal<"€."<<endl;
+				cout<<"La ruleta contiene : "<<jugTotal<<" jugadores. \nEl dinero actual de la mesa es : "<<sumaDinero<<"€. \nLa bola se ha tirado : "<<tiradas<<" veces. \nEl dinero de la banca es : "<<bancaTotal<<"€."<<endl;
 
-				cout<<"______________________________________________"<<endl;
+				cout<<"\tEstado de los jugadores :"<<endl;
+				aux=r.getJugadores();
+				for(a1 = aux.begin();a1!=aux.end();a1++){
+					cout<<"El jugador con DNI "<<(*a1).getDNI()<<" con codigo "<<(*a1).getCodigo()<<" y su dinero restante es: "<<(*a1).getDinero()<<" €."<<endl;
+				}
+				cout<<"______________________________________________\n"<<endl;
 				break;				
 			case 4:
-			case 5:
-			case 6:
-			
+				cout<<"______________________________________________"<<endl;
+				r.leeJugadores();
+				cout<<"Jugadores cargados con exito!"<<endl;
 
+
+				cout<<"______________________________________________\n"<<endl;
+				break;
+			case 5:
+				cout<<"______________________________________________"<<endl;
+				r.escribeJugadores();
+				cout<<"Jugadores jugardados con exito!"<<endl;
+				cout<<"______________________________________________\n"<<endl;
+
+				break;
+			case 6:
+				break;
 		}
 
 
-
-
-
-	}while((opcion!=7)&&(opcion>0));
+	}while((opcion<7)&&(opcion>0));
 	return 0;
 }
