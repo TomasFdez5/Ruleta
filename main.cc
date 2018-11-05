@@ -9,15 +9,20 @@ Para compilar: g++  persona.cc jugador.cc crupier.cc ruleta.cc main.cc -o ruleta
 #include "ruleta.h"
 
 #include <string.h>
+#include <cstring>
 #include <stdlib.h>
 #include <list>
 #include <fstream>
 
+//using namespace ruleta;
 using namespace std;
 
 int main(){
 	//Opcion del menu
 	int opcion=1;
+	int encontrado=0;
+	string vacio;
+
 	list<Jugador>aux;
 	list<Jugador>::iterator a1;
 
@@ -31,9 +36,9 @@ int main(){
 	Jugador j(DNI,codigoJugador,nombre,apellidos,edad,direccion,localidad,provincia,pais);
 	Ruleta r(c);
 
-		cout<<"Into para continuar..."<<endl;
+		//cout<<"Intro para comenzar..."<<endl;
 	do{
-		getchar();
+		//getchar();
 		cout<<"______________________________________________"<<endl;
 		cout<<"Elija una opción de la Ruleta:"<<endl;
 
@@ -58,48 +63,62 @@ int main(){
 		switch(opcion){
 			case 1:
 				cout<<"______________________________________________"<<endl;
-				cout<<"Introduzca los datos del jugador..."<<endl;
-				cout<<"Introduzca su DNI :"<<endl;
-				cin>>cadena;
-				j.setDNI(cadena);
+				cout<<"Introduzca los datos del jugador. Los marcados con * son campos obligatorios!"<<endl;
+				cout<<"Introduzca su DNI* :"<<endl;
+				getchar();
+				getline(cin,cadena);
+				if(cadena==vacio){
+					cout<<"No se ha introducido el campo obligatorio. ERROR!!!!"<<endl;
+					break;
+				}else{
+					j.setDNI(cadena);
+				}
 
-				cout<<"Introduzca su codigo :"<<endl;
-				cin>>cadena;
-				j.setCodigo(cadena);
+				cout<<"Introduzca su codigo* :"<<endl;
+				getline(cin,cadena);
+				if(cadena==vacio){
+					cout<<"No se ha introducido el campo obligatorio. ERROR!!!!"<<endl;
+					break;
+				}else{
+					j.setCodigo(cadena);
+				}
 
 				cout<<"Introduzca su nombre :"<<endl;
-				cin>>cadena;
+				getline(cin,cadena);
 				j.setNombre(cadena);
 
 				cout<<"Introduzca su primer apellido :"<<endl;
-				cin>>apellido1;
+				getline(cin,apellido1);
 				cout<<"Introduzca su segundo apellido :"<<endl;
-				cin>>apellido2;
+				getline(cin,apellido2);
 				apellidos=apellido1+" "+apellido2;
 				j.setApellidos(apellidos);
 
 				cout<<"Introduzca su edad :"<<endl;
-				cin>>edad;
+				getline(cin,cadena);
+				edad=atoi(cadena.c_str());				
 				j.setEdad(edad);
-				getchar();
+
 				cout<<"Introduzca su direccion :"<<endl;
 				getline(cin,cadena);
 				j.setDireccion(direccion);
 
 				cout<<"Introduzca su Localidad :"<<endl;
-				cin>>cadena;
+				getline(cin,cadena);
 				j.setLocalidad(cadena);
 
 				cout<<"Introduzca su Provincia :"<<endl;
-				cin>>cadena;
+				getline(cin,cadena);
 				j.setProvincia(cadena);
 
 				cout<<"Introduzca su Pais :"<<endl;
-				cin>>cadena;
+				getline(cin,cadena);
 				j.setPais(cadena);
 
 				cout<<"Introduzca el dinero de inicio :"<<endl;
-				cin>>dinero;
+				//cin>>dinero;
+				getline(cin,cadena);
+				dinero=atoi(cadena.c_str());
 				j.setDinero(dinero);
 
 				//Utilizamos el metodo de la clase ruleta.
@@ -113,8 +132,18 @@ int main(){
 				cout<<"______________________________________________"<<endl;
 				cout<<"Introduzca el dni del jugador que desea eliminar :"<<endl;
 				cin>>cadena;
-				r.deleteJugador(cadena);
-				cout<<"Jugador eliminado con exito!"<<endl;
+
+				for(a1 = aux.begin();a1!=aux.end();a1++){
+					if(strcmp(cadena.c_str(),(*a1).getDNI().c_str())==0){
+						r.deleteJugador(cadena);
+						encontrado=1;
+						cout<<"Jugador eliminado con exito!"<<endl;
+					}
+				}
+				if(encontrado==0){
+					cout<<"No se ha encontrado al jugador que desea borrar..."<<endl;
+				}
+
 				cout<<"______________________________________________\n"<<endl;
 
 				break;

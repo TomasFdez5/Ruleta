@@ -1,3 +1,2 @@
 44XX,jugador1,,,,,,,0
 55XX,jugador2,,,,,,,0
-66XX,jugador3,tomas,fdez urbno,,crdoba,crdoba,españa,2500
