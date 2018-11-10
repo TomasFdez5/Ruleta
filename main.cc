@@ -20,11 +20,12 @@ using namespace std;
 int main(){
 	//Opcion del menu
 	int opcion=1;
-	int encontrado=0;
+	int encontrado=0,resultado=0,numero=0,i=0,nApuestas=0;
 	string vacio;
 
 	list<Jugador>aux;
 	list<Jugador>::iterator a1;
+	Apuesta auxAp;
 
 	//Declaracion de variables
 	int jugTotal,sumaDinero,tiradas,bancaTotal, edad,dinero;
@@ -54,7 +55,10 @@ int main(){
 
 		cout<<"6. Girar la ruleta y mostrar premios"<<endl;//d
 
-		cout<<"7. Salir del programa "<<endl;//g
+		cout<<"7. Añadir una apuesta a un jugador "<<endl;//g
+
+		cout<<"8. Salir del programa "<<endl;//g
+
 		cout<<"______________________________________________"<<endl;
 
 		cout<<"Elija una opcion :"<<endl;
@@ -177,10 +181,81 @@ int main(){
 
 				break;
 			case 6:
+				cout<<"______________________________________________"<<endl;
+				cout<<"Hagan sus apuestas.........No va mas!!"<<endl;
+				r.giraRuleta();
+				resultado=r.getBola();
+				cout<<"La bola resultante ha sido : "<<resultado<<endl;
+				r.getPremios();
+
+				aux=r.getJugadores();
+				for(a1=aux.begin();a1!=aux.end();a1++){
+					if(r.Apostado()<0){
+						cout<<"Jugador "<<a1->getCodigo()<<" con dni "<<a1->getDNI()<<endl;
+						cout<<"Ha perdido "<<r.Apostado()<<" €."<<endl;
+					}
+					if(a1->getDinero()<0){
+						cout<<"Al jugador "<<a1->getCodigo()<<" con dni "<<a1->getDNI()<<endl;
+						cout<<"Le quedan "<<a1->getDinero()<<" €"<<endl;
+						cout<<"Eliminando de la mesa...."<<endl;
+						r.deleteJugador(a1->getDNI());
+						cout<<"Jugador eliminado de la mesa!."<<endl;
+
+					}
+					if(r.Apostado()>0){
+						cout<<"Jugador "<<a1->getCodigo()<<" con dni "<<a1->getDNI()<<endl;
+						cout<<"Ha ganado "<<r.Apostado()<<" €."<<endl;
+					}
+				}
+
+				resultado=r.getBanca()-1000000;
+				if(resultado<0){
+					cout<<"La banca ha perdido "<<resultado<<" €"<<endl;
+				}
+				else{
+					cout<<"La banca ha ganado "<<resultado<<" €"<<endl;
+				}
+
+				cout<<"______________________________________________\n"<<endl;
 				break;
+			
+			case 7:
+
+				cout<<"\nIntroduzca cuantas apuestas desea realizar...\n";
+				cin>>numero;
+				cout<<"Introduzca el DNI del jugador para apostar\n";
+				cin>>DNI;
+				i=0;
+				cout<<"Tipo de apuesta 1: Numero de la Bola\n";
+				cout<<"Tipo de apuesta 2: Color \n";
+				cout<<"Tipo de apuesta 3: Paridad(Par e Impar)\n";
+				cout<<"Tipo de apuesta 4: Nivel(1-18(Bajo) y 19-36(Alto))\n";
+				
+				cadena=DNI+".txt";
+				ofstream salida(cadena.c_str());
+				
+				do{
+					cout<<"Apuesta numero "<<i<<endl;
+
+					cout<<"\nIntroduzca su tipo de apuesta-> ";
+					cin>>auxAp.tipo;  
+
+					cout<<"\nIntroduzca su valor de apuesta-> ";
+					cin>>auxAp.valor;
+						
+					cout<<"\nIntroduzca su cantidad de apuesta-> ";
+					cin>>auxAp.cantidad;
+
+					salida<<auxAp.tipo<<","<<auxAp.valor<<","<<auxAp.cantidad<<"\n";
+					j.setApuestas();
+
+					i++;
+					nApuestas++;
+				}while(numero>nApuestas);
+				salida.close();
+			break;
 		}
 
-
-	}while((opcion<7)&&(opcion>0));
+	}while((opcion<8)&&(opcion>0));
 	return 0;
 }

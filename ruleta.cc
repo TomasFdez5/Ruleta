@@ -206,27 +206,27 @@ Actualiza el valor de la banca segun los premios que ha repartido.
 					case 1:
 					//Apuesta sencilla
 						apuestaSencilla(dinero,(*b2));
-						cout<<"TIENE "<<(*a1).getDinero()<<endl;
-						cout<<"Banca TIENE"<<getBanca()<<endl;
+						//cout<<"TIENE "<<(*a1).getDinero()<<endl;
+						//cout<<"Banca TIENE"<<getBanca()<<endl;
 						break;
 					case 2:
 					//Rojo o negro
 						apuestaRojoNegro(dinero,(*b2));
-						cout<<"TIENE"<<(*a1).getDinero()<<endl;
-						cout<<"Banca TIENE"<<getBanca()<<endl;
+						//cout<<"TIENE"<<(*a1).getDinero()<<endl;
+						//cout<<"Banca TIENE"<<getBanca()<<endl;
 						break;
 					case 3:
 					//Par o impar
 						apuestaParImpar(dinero,(*b2));
-						cout<<"TIENE"<<(*a1).getDinero()<<endl;
-						cout<<"Banca TIENE"<<getBanca()<<endl;
+						//cout<<"TIENE"<<(*a1).getDinero()<<endl;
+						//cout<<"Banca TIENE"<<getBanca()<<endl;
 						break;
 
 					case 4:
 					//Alto o bajo
 						apuestaAltoBajo(dinero,(*b2));
-						cout<<"TIENE"<<(*a1).getDinero()<<endl;
-						cout<<"Banca TIENE"<<getBanca()<<endl;
+						//cout<<"TIENE"<<(*a1).getDinero()<<endl;
+						//cout<<"Banca TIENE"<<getBanca()<<endl;
 						break;
 
 			//el parámetro (*b2) hace refencia a la apuesta de cada jugador
@@ -360,4 +360,35 @@ Actualiza el valor de la banca segun los premios que ha repartido.
 		jugTotal=jugadores_.size();
 		tiradas=tiradas_;
 		bancaTotal=getBanca();
+	}
+
+
+	int Ruleta::Apostado(){
+		list<Apuesta>listaAp;
+		list<Jugador>::iterator a1;
+		list<Apuesta>::iterator b2;
+		int dinero;
+
+		for(a1=jugadores_.begin();a1!=jugadores_.end();a1++){
+			dinero=0;
+			//Establezco la apuesta a 0 para ver cuanto me llevaria
+			a1->setApuestas();
+			listaAp=a1->getApuestas();
+			for(b2=listaAp.begin();b2!=listaAp.end();b2++){
+				if(b2->tipo==1){
+					apuestaSencilla(dinero,(*b2));
+				}
+				if(b2->tipo==2){
+					apuestaRojoNegro(dinero,(*b2));
+				}
+				if(b2->tipo==3){
+					apuestaParImpar(dinero,(*b2));
+				}
+				if(b2->tipo==4){
+					apuestaAltoBajo(dinero,(*b2));
+				}
+			}
+
+		}
+		return dinero;
 	}

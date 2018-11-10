@@ -109,7 +109,12 @@ apuesta realizada
 
 
 		void getEstadoRuleta(int &jugTotal, int &sumaDinero,int &tiradas, int &bancaTotal);
-
+/*
+Apostado():
+Funcion que me devuelve la cantidad que ganaria o perderia un jugador
+en case de acertar o perder sus apuestas
+*/
+		int Apostado();
 };
 
 
