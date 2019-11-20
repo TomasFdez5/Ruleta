@@ -3,3 +3,66 @@
 ### Tutorial
 
 En este repositorio vamos a aprender a crear una clase en C++ para simular una partida en una ruleta.
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+a
+
+a
+a
+a
+a
+a
+a
+
+a
+a
+a
+a
+a
+a
+a
+a
+a
+
+a
+a
+a
+a
+a
+a
+a
+
+a
+
+## Apartado 2
+
+hola que tal
